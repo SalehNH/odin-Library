@@ -69,7 +69,6 @@ function Book(title, author, pages, read, customeCounter, exist) {
     this.exist = exist;
 }
 
-
 function showLibrary() {
     let bookName = document.getElementById("BookName").value;
     let authorName = document.getElementById("AuthorName").value;
@@ -96,7 +95,24 @@ function showLibrary() {
     let customeClass = "cc" + (numberOfBooks);
     card.classList.add('card', customeClass);
     card.style.width = "18rem";
-    card.innerHTML = `
+
+    if (read) {
+        card.innerHTML = `
+        <div class="card-body">
+            <h5 class="card-title cardTitle${numberOfBooks}"></h5>
+            <p class="card-text cardText${numberOfBooks}"></p>
+            <hr class="card-text">
+            <p class="card-text cardPages${numberOfBooks}"></p>
+            <p class="card-text cardRead${numberOfBooks}"></p>
+            <label class="switch">
+            <input type="checkbox" onclick="checkFunc(this) "class="check${numberOfBooks}" checked>
+            <span class="slider round"></span>
+            </label>
+            <input type="button" value="Delete" class="btn btn-danger btn${numberOfBooks}" onclick="removeCard(this)">
+        </div>
+        `;
+    } else {
+        card.innerHTML = `
         <div class="card-body">
             <h5 class="card-title cardTitle${numberOfBooks}"></h5>
             <p class="card-text cardText${numberOfBooks}"></p>
@@ -110,12 +126,6 @@ function showLibrary() {
             <input type="button" value="Delete" class="btn btn-danger btn${numberOfBooks}" onclick="removeCard(this)">
         </div>
         `;
-
-
-    let tmp = ".check" + numberOfBooks;
-    let toggle = document.querySelector(tmp);
-    if (read) {
-        toggle.checked;
     }
 
     mainContent.appendChild(card);
