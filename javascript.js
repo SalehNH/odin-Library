@@ -45,29 +45,64 @@ function updateCards() {
         let cardText = document.querySelector(text2);
         let cardPages = document.querySelector(text3);
         let cardRead = document.querySelector(text4);
-        cardTitle.textContent = myLibrary[i].title;
-        cardText.textContent = myLibrary[i].author;
-        cardPages.textContent = myLibrary[i].pages;
-        cardRead.textContent = myLibrary[i].read;
+        cardTitle.textContent = myLibrary[i].getTitle();
+        cardText.textContent = myLibrary[i].getAuthor();
+        cardPages.textContent = myLibrary[i].getPages();
+        cardRead.textContent = myLibrary[i].getRead();
 
     }
 }
 
-function Book(title, author, pages, read, customeCounter, exist) {
-    this.title = title;
-    this.author = "by " + author;
-    this.pages = "Pages: " + pages;
-    if (read == true) {
-        this.read = "status: Done";
-    } else {
-        this.read = "status: Not Done";
+class Book{
+
+    constructor(title, author, pages, read, customeCounter, exist){
+        this.title = title;
+        this.author = "by " + author;
+        this.pages = "Pages: " + pages;
+        if (read == true) {
+            this.read = "status: Done";
+        } else {
+            this.read = "status: Not Done";
+        }
+        this.customeCounter = customeCounter;
+        this.exist = exist;
     }
-    this.info = function () {
+
+    getInfo(){ 
         console.log(this.title + " by " + this.author + ", " + this.pages + " pages, " + this.read + ".");
     }
-    this.customeCounter = customeCounter;
-    this.exist = exist;
+
+    // getters
+    getTitle(){ return this.title; }
+    getAuthor(){ return this.author; }
+    getPages(){ return this.pages; }
+    getRead(){ return this.read; }
+    getCustomeCounter(){ return this.customeCounter; }
+    getExist(){ return this.exist; }
+    // setters
+    setTitle(title){ this.title = title; }
+    setAuthor(author){ this.author = author; }
+    setPages(pages){ this.pages = pages; }
+    setRead(read){ this.read = read; }
+    setCustomeCounter(customeCounter){ this.customeClass = customeCounter; }
+    setExist(exist){ this.exist = exist; }
 }
+
+// function Book(title, author, pages, read, customeCounter, exist) {
+//     this.title = title;
+//     this.author = "by " + author;
+//     this.pages = "Pages: " + pages;
+//     if (read == true) {
+//         this.read = "status: Done";
+//     } else {
+//         this.read = "status: Not Done";
+//     }
+//     this.info = function () {
+//         console.log(this.title + " by " + this.author + ", " + this.pages + " pages, " + this.read + ".");
+//     }
+//     this.customeCounter = customeCounter;
+//     this.exist = exist;
+// }
 
 function showLibrary() {
     let bookName = document.getElementById("BookName").value;
@@ -88,7 +123,8 @@ function showLibrary() {
         return false;
     }
 
-    myLibrary.push(new Book(bookName, authorName, pages, read, numberOfBooks, true));
+    var newBook = new Book(bookName, authorName, pages, read, numberOfBooks, true);
+    myLibrary.push(newBook);
 
     let card = document.createElement('div');
 
